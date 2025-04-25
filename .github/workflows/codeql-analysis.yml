@@ -1,0 +1,42 @@
+name: "CodeQL Analysis"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  analyze:
+    name: Analyze CodeQL
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up CodeQL
+        uses: github/codeql-action/setup-codeql@v1
+
+      - name: Set up Python environment
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Build project (manual step, if necessary)
+        run: |
+          # If you need any additional build steps, add them here
+          # For example, if there are any other setup tasks needed for your project
+          echo "Build step completed."
+
+      - name: Create CodeQL database
+        run: |
+          codeql database create /home/runner/work/_temp/codeql_databases/invest-db --language=python --source-root=.
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v1
+        with:
+          category: "security"
