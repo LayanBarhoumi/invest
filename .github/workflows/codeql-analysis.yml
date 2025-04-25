@@ -15,17 +15,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Latest version
+        uses: actions/checkout@v2  # Checkout code (v2 is fine here)
 
       - name: Set up CodeQL
-        uses: github/codeql-action/setup-codeql@v2  # Latest version
+        uses: github/codeql-action/setup-codeql@v1  # Correct version for setup-codeql
 
       - name: Build the codebase (if necessary)
         run: |
           # Add any custom build steps for your project
           echo "Building the project..."
-        
+
       - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v2  # Latest version
+        uses: github/codeql-action/analyze@v1  # Correct version for analyze action
         with:
           languages: python, cpp, javascript  # Adjust based on your project's languages
