@@ -1,4 +1,4 @@
-name: "CodeQL Analysis"
+name: CodeQL Analysis
 
 on:
   push:
@@ -15,28 +15,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # Latest version
 
       - name: Set up CodeQL
-        uses: github/codeql-action/setup-codeql@v1
+        uses: github/codeql-action/setup-codeql@v2  # Latest version
 
-      - name: Set up Python environment
+      - name: Build the codebase (if necessary)
         run: |
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
-
-      - name: Build project (manual step, if necessary)
-        run: |
-          # If you need any additional build steps, add them here
-          # For example, if there are any other setup tasks needed for your project
-          echo "Build step completed."
-
-      - name: Create CodeQL database
-        run: |
-          codeql database create /home/runner/work/_temp/codeql_databases/invest-db --language=python --source-root=.
-
+          # Add any custom build steps for your project
+          echo "Building the project..."
+        
       - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v1
+        uses: github/codeql-action/analyze@v2  # Latest version
         with:
-          category: "security"
+          languages: python, cpp, javascript  # Adjust based on your project's languages
